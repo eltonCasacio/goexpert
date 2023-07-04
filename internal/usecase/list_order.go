@@ -1,6 +1,8 @@
 package usecase
 
-import "github.com/eltoncasacio/goexpert/internal/entity"
+import (
+	"github.com/eltoncasacio/goexpert/internal/entity"
+)
 
 type ListOrderUseCase struct {
 	OrderRepository entity.OrderRepositoryInterface
@@ -15,7 +17,7 @@ func NewListOrderUseCase(OrderRepository entity.OrderRepositoryInterface) *ListO
 func (c *ListOrderUseCase) Execute() ([]OrderOutputDTO, error) {
 	orders, err := c.OrderRepository.List()
 	if err != nil {
-		return []OrderOutputDTO{}, err
+		return nil, err
 	}
 
 	output := []OrderOutputDTO{}

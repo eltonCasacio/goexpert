@@ -6,12 +6,12 @@ import (
 	"net"
 	"net/http"
 
-	// graphql_handler "github.com/99designs/gqlgen/graphql/handler"
-	// "github.com/99designs/gqlgen/graphql/playground"
+	graphql_handler "github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/eltoncasacio/goexpert/configs"
 	"github.com/eltoncasacio/goexpert/internal/event/handler"
 
-	// "github.com/eltoncasacio/goexpert/internal/infra/graph"
+	"github.com/eltoncasacio/goexpert/internal/infra/graph"
 	"github.com/eltoncasacio/goexpert/internal/infra/grpc/pb"
 	"github.com/eltoncasacio/goexpert/internal/infra/grpc/service"
 	"github.com/eltoncasacio/goexpert/internal/infra/web/webserver"
@@ -65,11 +65,11 @@ func main() {
 	}
 	go grpcServer.Serve(lis)
 
-	// srv := graphql_handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{
-	// 	CreateOrderUseCase: *createOrderUseCase,
-	// }}))
-	// http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	// http.Handle("/query", srv)
+	srv := graphql_handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{
+		CreateOrderUseCase: *createOrderUseCase,
+	}}))
+	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	http.Handle("/query", srv)
 
 	fmt.Println("Starting GraphQL server on port", configs.GraphQLServerPort)
 	http.ListenAndServe(":"+configs.GraphQLServerPort, nil)

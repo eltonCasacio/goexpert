@@ -27,7 +27,7 @@ func (r *OrderRepository) Save(order *entity.Order) error {
 }
 
 func (r *OrderRepository) List() ([]entity.Order, error) {
-	rows, err := r.Db.Query("Select id, price, tax, final_price from orders")
+	rows, err := r.Db.Query("SELECT id, price, tax, final_price from orders")
 	if err != nil {
 		return nil, err
 	}
@@ -35,7 +35,7 @@ func (r *OrderRepository) List() ([]entity.Order, error) {
 
 	var orders []entity.Order
 	for rows.Next() {
-		var order entity.Order
+		order := entity.Order{}
 		err = rows.Scan(&order.ID, &order.Price, &order.Tax, &order.FinalPrice)
 		if err != nil {
 			return nil, err
