@@ -7,7 +7,3 @@ Content-Type: application/json
     "price": 100.5,
     "tax": 0.5
 }
-
-
-###
-GET http://localhost:8000/orders HTTP/1.1
